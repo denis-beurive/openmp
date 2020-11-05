@@ -1,7 +1,5 @@
 #include <omp.h>
 #include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 
 // export OMP_NUM_THREADS=4
 
@@ -10,6 +8,7 @@ int main() {
     int result = 0;
 
     // Number of loop: 8
+    // Number of thread: 4 (OMP_NUM_THREADS)
     // The text printed to STDOUT can be misleading.
     printf("==========================================================\n");
     #pragma omp parallel for reduction(+:result)
@@ -23,10 +22,12 @@ int main() {
 
     // The previous code could be replaced by the following one.
     // Although it is not identical.
+    // Mak sure to set export OMP_NUM_THREADS=4 !!!
+    // 2 passes, 4 threads per pass.
+    // WARNING: the loop bloc is totally within critical section!!!
     printf("==========================================================\n");
     result = 0;
     int delta = -1;
-    setenv("OMP_NUM_THREADS", "2", 1);
     #pragma omp parallel default(none) shared(result, delta)
     for (int i=0; i<2; i++) {
         #pragma omp atomic
@@ -37,7 +38,5 @@ int main() {
     }
     // result = 0 + 1 + 2 + 3 +... + 7
     printf("result=%d\n", result);
-
-
 
 }

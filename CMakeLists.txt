@@ -26,3 +26,16 @@ set_target_properties(
         RUNTIME_OUTPUT_DIRECTORY bin
         EXCLUDE_FROM_ALL off)
 
+add_executable(sections src/sections.c)
+set_target_properties(
+        sections
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY bin
+        EXCLUDE_FROM_ALL off)
+
+add_executable(collapse src/collapse.c)
+set_target_properties(
+        collapse
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY bin
+        EXCLUDE_FROM_ALL off)
