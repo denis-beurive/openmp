@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
 project(openmp C)
 
 set(CMAKE_C_STANDARD 99)
@@ -36,6 +36,14 @@ set_target_properties(
 add_executable(collapse src/collapse.c)
 set_target_properties(
         collapse
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY bin
+        EXCLUDE_FROM_ALL off)
+
+add_executable(breaker src/breaker_for_omp.c)
+target_link_libraries(breaker crypt m)
+set_target_properties(
+        breaker
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY bin
         EXCLUDE_FROM_ALL off)
